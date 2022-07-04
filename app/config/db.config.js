@@ -2,5 +2,5 @@
 // with db.config.js file like this:
 
 module.exports = {
-  url: "mongodb://localhost:27017/payments_db"
+  url: "mongodb://localhost:27019/payments_db"
 };

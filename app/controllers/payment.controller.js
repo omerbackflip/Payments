@@ -1,6 +1,5 @@
 const db = require("../models");
 const Payment = db.payments;
-const Book = db.books;
 const csv=require('csvtojson')
 var fs = require('fs');
 
@@ -11,24 +10,20 @@ exports.create = (req, res) => {
 		res.status(400).send({ message: "Date can not be empty!" });
 		return;
 	}
-
-	// Create a Payment
 	const payment = new Payment({
 		project: req.body.project,
 		clear: req.body.clear,
 		amount: req.body.amount,
 		vat: req.body.vat,
 		total: req.body.total,
-		payMathod: req.body.payMathod,
+		payMethod: req.body.payMethod,
 		date: req.body.date,
 		supplier: req.body.supplier,
 		invoiceId: req.body.invoiceId,
 		remark: req.body.remark,
 	});
-
-	// Save Payment in the database
 	payment
-		.save(payment)
+		.save()
 		.then(data => {
 			res.send(data);
 		})
@@ -49,37 +44,22 @@ exports.findAll = async (req, res) => {
 	// const search = req.query.description;
 	// var condition = search ? { description: { $regex: new RegExp(search), $options: "i" } } : {};
 	let condition = {};
-	const {year,supplier} = req.query;	
-	
-	if (year && year != 'ALL') {
-		condition = {year};
-	} 
-	
+	let response  = {};
+	const {supplier} = req.query;	
 	if (supplier && supplier != 'ALL') {
 		condition = {supplier};
 	} 
 
 	const data = await Payment.find(condition).lean();
 	try {
-		const allData = await Promise.all(data.map(async (mapData) => {
-			mapData.vat = mapData.vat?.toLocaleString();
-			mapData.amount = mapData.amount?.toLocaleString();
-
-			if (await Book.exists({ company: mapData.company, record_id: mapData.excelRecID })) {
-				// if(mapData.excelRecID) {
-				const item = await Book.findOne({ company: mapData.company, record_id: mapData.excelRecID });
-				return {
-					...mapData,
-					toolTip:`${item.pratim} - ${item.record_schum ?Number(item.record_schum).toLocaleString() : '' } - ${item.cust_lname}`,
-					pratim: item.pratim,
-					record_schum: item.record_schum,
-					cust_lname: item.cust_lname,
-					cust_fname: item.cust_fname
-				};
-			} 
-			else return mapData
-		}))
-		res.send(allData);
+		let total = 0;
+		data.forEach((num) => {
+			total+=num.amount;
+		})
+		response.data = data;
+		response.total = total;
+		response.count = data.length;
+		res.send(response);
 	} catch (err) {
 		res.status(500).send({ message: err.message || "Some error occurred while retrieving payments." });
 	};
@@ -225,7 +205,8 @@ exports.saveBulk = async (req, res) => {
 
 	try {
 		let data= await csv().fromFile(`uploads/${req.file.filename}`);
-		data = data.map(item => item.published === 'T' ? {...item,published: true} : {...item,published: false});
+			//console.log(data)
+			//data = data.map(item => {item.date ='01/01/2022'});
 		if (data) {
 			const result = await Payment.insertMany(data, {ordered: true});
 			unLinkFile(`uploads/${req.file.filename}`);

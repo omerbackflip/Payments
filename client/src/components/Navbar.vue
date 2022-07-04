@@ -2,15 +2,12 @@
     <nav>
         <v-app-bar app dark>
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-app-bar-title>
-                Invoices
-            </v-app-bar-title>
             <v-spacer></v-spacer>
             <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn v-bind="attrs" v-on="on">
                         <v-icon left>expand_more</v-icon>
-                        <span>Menu1</span>
+                        <span>Menu</span>
                     </v-btn>
                 </template>
                 <v-list>
@@ -19,10 +16,13 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-            <v-btn color="gray">
-                <span>Sign Out</span>
-                <v-icon right>exit_to_app</v-icon>
-            </v-btn>            
+            <v-select class="mt-6"
+                :items="supplierList"
+                @change="onSuppChange"
+                dense
+                solo
+            ></v-select>
+            <Payment title="New Payment" :paymentToUpdate="null"/>
         </v-app-bar>
 
         <v-navigation-drawer app v-model="drawer" class="primary">
@@ -44,7 +44,10 @@
 
 
 <script>
+import TableDataService from "../services/TableDataService";
+import Payment from "./Payment.vue"
 export default {
+    components: {Payment},
     data() {
         return {
             drawer: false,
@@ -54,11 +57,39 @@ export default {
                 {icon: 'folder', text: 'Load Scv', route: '/loadCsv'},
                 {icon: 'folder', text: 'הוסף חשבונית', route: '/addInv'},
                 {icon: 'folder', text: 'Load Csv Book', route: '/loadBookCsv'},
-                {icon: 'folder', text: 'כרטסת רו"ח', route: '/bookingList'},
+                {icon: 'folder', text: 'עדכון תשלום', route: '/Payment'},
                 {icon: 'folder', text: 'טבלת הטבלאות', route: '/tableList'},
             ],
+            supplierList : [],
+            selectedSupplier : "",
         }
-    }
+    },
     
+    methods: {
+        loadTable:async function (table_id,key) {
+        try {
+            const response = await TableDataService.findByTableID(table_id);
+            if(response) {
+            this[key] = response.data.map(code => code.description);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        },
+
+        onSuppChange(event) {
+            this.$root.$emit('suppChange',event);
+        },
+    },
+
+    async mounted() {
+        await this.loadTable(1,'supplierList');
+    },
+
+    watch : {
+        selectedSupplier () {
+            this.$refs.PaymentsList.retrievePayments(this.selectedSupplier);
+        },
+    }
 }
 </script>
