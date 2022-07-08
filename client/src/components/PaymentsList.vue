@@ -4,10 +4,10 @@
       <v-flex>
         <v-row>
           <v-col class="mt-3">
-            Total = {{total.toLocaleString()}}
+            סה"כ = {{total.toLocaleString()}}
           </v-col>
           <v-col class="mt-3">
-            Count = {{count}}
+            תשלומים = {{count}}
           </v-col>
         </v-row>
         <v-list two-line dense rounded>
@@ -24,7 +24,12 @@
                     <v-list-item-subtitle class="text--primary">
                       חשבונית - {{item.invoiceId}}  שיק - {{item.payMethod}}
                     </v-list-item-subtitle>
-                    <v-list-item-subtitle>{{item.total ? item.total.toLocaleString():''}}  ({{item.amount ? item.amount.toLocaleString():''}})</v-list-item-subtitle>
+                    <v-list-item-subtitle>
+                      {{item.amount ? item.amount.toLocaleString():''}}
+                    </v-list-item-subtitle>
+                    <v-list-item-subtitle>
+                      {{item.remark}}
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-list-item-action-text> {{item.date | formatDate}}</v-list-item-action-text>

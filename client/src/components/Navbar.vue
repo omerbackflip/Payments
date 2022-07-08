@@ -21,6 +21,8 @@
                 @change="onSuppChange"
                 dense
                 solo
+                outlined
+                label="בחר ספק"
             ></v-select>
             <Payment title="New Payment" :paymentToUpdate="null"/>
         </v-app-bar>
@@ -70,7 +72,8 @@ export default {
         try {
             const response = await TableDataService.findByTableID(table_id);
             if(response) {
-            this[key] = response.data.map(code => code.description);
+                this[key] = response.data.map(code => code.description);
+                this[key].sort();
             }
         } catch (error) {
             console.log(error);
