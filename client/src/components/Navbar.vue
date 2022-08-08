@@ -3,27 +3,22 @@
         <v-app-bar app dark>
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-spacer></v-spacer>
-            <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on">
-                        <v-icon left>expand_more</v-icon>
-                        <span>Menu</span>
-                    </v-btn>
-                </template>
-                <v-list>
-                    <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
-                        <v-list-item-title>{{link.text}}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
             <v-select class="mt-6"
                 :items="supplierList"
                 @change="onSuppChange"
                 dense
                 solo
                 outlined
-                label="בחר ספק"
+                label="בחר קבלן"
             ></v-select>
+            <v-row>
+                <v-col class="summary">
+                    תקציב = {{count}}
+                    <p></p>
+                    שולם = {{total.toLocaleString()}}
+                </v-col>
+            </v-row>
+            <payments-list @getData = "getValues" :noData = "true"  />
             <Payment title="New Payment" :paymentToUpdate="null"/>
         </v-app-bar>
 
@@ -47,9 +42,11 @@
 
 <script>
 import TableDataService from "../services/TableDataService";
-import Payment from "./Payment.vue"
+import Payment from './Payment.vue';
+import PaymentsList from './PaymentsList.vue';
+// import PaymentsList from './PaymentsList.vue';
 export default {
-    components: {Payment},
+    components: {Payment, PaymentsList},
     data() {
         return {
             drawer: false,
@@ -64,6 +61,8 @@ export default {
             ],
             supplierList : [],
             selectedSupplier : "",
+            total: '??????',
+            count: '???',
         }
     },
     
@@ -83,6 +82,11 @@ export default {
         onSuppChange(event) {
             this.$root.$emit('suppChange',event);
         },
+
+        getValues(count,total) {
+            this.total = total;
+            this.count = count;
+        }
     },
 
     async mounted() {
@@ -96,3 +100,19 @@ export default {
     }
 }
 </script>
+
+<style>
+    .v-input__slot {
+      max-width: 100px;
+      max-height: 60px;
+    }
+
+    .summary {
+        font-size: small;
+    }
+
+    .v-application p {
+        margin-bottom: 4px;
+    }
+
+</style>

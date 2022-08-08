@@ -23,9 +23,9 @@ export default new Router({
       component: () => import("./components/ImportCsvBook")
     },
     {
-      path: "/Payment2",
+      path: "/Payment",
       name: "payment",
-      component: () => import("./components/Payment2")
+      component: () => import("./components/Payment")
     },
     {
       path: "/tableList",
