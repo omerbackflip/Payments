@@ -39,8 +39,8 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/payment.routes")(app);
-require("./app/routes/book.routes")(app);
 require("./app/routes/table.routes")(app);
+require("./app/routes/project.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3002;

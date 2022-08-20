@@ -1,11 +1,8 @@
 <template>
   <div class="list row">
-    <!-- <div class="input-group mb-3 mt-3">
-      <input type="text" class="form-control" placeholder="Search..." v-model="searchStr"/>
-      <v-btn @click="searchSTR" class="ml-2 mr-2"> Search </v-btn>
-    </div>  -->
-    <!-- <AddInvoice></AddInvoice> -->
     <v-layout row wrap>
+
+      <!-- (left side) main table list - 99  -->
       <v-flex xs12 md3>
         <v-text-field
           v-model="search"
@@ -66,6 +63,8 @@
           </template>
         </v-data-table>
       </v-flex>
+
+      <!-- (Right side) table details -->
       <v-flex xs12 md4 mt-3>
         <div class="title"> {{ tableTitle ? tableTitle : 'Title' }} </div>
         <v-data-table :headers="headers" 
@@ -119,6 +118,7 @@
         </v-data-table>
       </v-flex>
 
+      <!-- adding new row to the table -->
       <v-flex md10>
         <v-footer color="primary lighten-1" align="center" class="mt-2" elevation="10">
           <v-form ref="form" >

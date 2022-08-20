@@ -95,8 +95,10 @@ export default {
 
     methods: {
         savePayment() {
-            // here need to add conditional between create and update  
-            PaymentDataService.create(this.payment)
+            if (this.paymentToUpdate)
+                PaymentDataService.update(this.payment._id, this.payment)
+                else
+                PaymentDataService.create(this.payment)
             .then(response => {
                 console.log('create invoiceId=',response.data.invoiceId)
             })
@@ -105,16 +107,6 @@ export default {
             });
             this.dialog = false;
         },
-
-        async getPayment(id){
-            PaymentDataService.get(id)
-            .then(response => {
-                this.payment = response.data;
-            })
-            .catch(e => {
-                console.log(e);
-            });
-        }
     },
 
      mounted(){

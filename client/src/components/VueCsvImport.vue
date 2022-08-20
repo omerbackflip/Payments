@@ -75,7 +75,7 @@
                         </slot>
                     </div>
                 </div> -->
-                <v-btn @click="importTutorialRecords">save</v-btn>
+                <v-btn :disabled="showErrorMessage" @click="importCSVRecords">Load Payments</v-btn>
             </div>
             <!-- {{ form.csv }} -->
         </div>
@@ -317,49 +317,21 @@ export default {
         makeId(id) {
             return `${id}${this._uid}`;
         },
-        saveInvoice() {
-            if (window.confirm(`Confirm importing records into Tutorial table...`)){
-                for (let i = 1; i < this.form.csv.length; i++) { 
-                    var data = {
-                        company:      this.form.csv[i].Company && this.form.csv[i].Company.replace(/\s+/g, '') ,
-                        description:  this.form.csv[i].Description,
-                        amount:       parseInt(this.form.csv[i].Amount),
-                        vat:          parseInt(this.form.csv[i].Vat),
-                        total:        parseInt(this.form.csv[i].Total),
-                        group:        parseInt(this.form.csv[i].GroupID),
-                        date:         this.form.csv[i].InvDate,
-                        supplier:     this.form.csv[i].supplier,
-                        invoiceId:    this.form.csv[i].invoiceID,
-                        remark:       this.form.csv[i].Remark,
-                        excelRecID:   parseInt(this.form.csv[i].ExcelRecordID),
-                        published:    this.form.csv[i].published.trim() === 'T' ? true : false,
-                        project:      this.form.csv[i].Project,
-                        year:      this.form.csv[i].Year,
-                    };
-                    PaymentDataService.create(data)
-                    .then(response => {
-                        console.log(response.data);
-                    })
-                    .catch(e => {
-                        console.log("error while insert new Tutorial " + e);
-                    });
-                }
-                window.alert(`${this.form.csv.length} records were processed`)
-            }
-        },
+
         setCsvFile(event){
             if(event && event.target && event.target.files[0]) {
                 this.form.csv = event.target.files[0];
             }
         },
-        async importTutorialRecords() {
-            try {
-                if (window.confirm(`Confirm Importing records into Tutorial table...`)){
+
+        async importCSVRecords() {
+            try { // csv file must have: "mm/dd/yyyy"  ###### numbers without comma  and  without % only number
+                if (window.confirm(`Confirm Importing records into Payments table...`)){
                     await PaymentDataService.saveBulk(this.form.csv)
                     window.alert(`Records were processed and saved`)
                 }                
             } catch (error) {
-                console.log("error while saing bulk " + error);                
+                console.log("error while saving bulk " + error);                
             }
         },
     },

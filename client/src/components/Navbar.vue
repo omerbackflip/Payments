@@ -13,13 +13,16 @@
             ></v-select>
             <v-row>
                 <v-col class="summary">
-                    תקציב = {{count}}
+                    תקציב = {{budget.toLocaleString()}}
                     <p></p>
                     שולם = {{total.toLocaleString()}}
+                    <p></p>
+                    נותר = {{(budget-total).toLocaleString()}}
                 </v-col>
             </v-row>
-            <payments-list @getData = "getValues" :noData = "true"  />
+            <payments-list @getData = "getValues" :noData = "true" />
             <Payment title="New Payment" :paymentToUpdate="null"/>
+           <v-icon small @click="deleteAllPayments()">mdi-delete</v-icon>
         </v-app-bar>
 
         <v-navigation-drawer app v-model="drawer" class="primary">
@@ -42,6 +45,8 @@
 
 <script>
 import TableDataService from "../services/TableDataService";
+import ProjectDataService from "../services/ProjectDataService";
+import PaymentDataService from "../services/PaymentDataService";
 import Payment from './Payment.vue';
 import PaymentsList from './PaymentsList.vue';
 // import PaymentsList from './PaymentsList.vue';
@@ -55,32 +60,59 @@ export default {
                 {icon: 'person', text: 'הוסף רשומה (קוד מקורי)', route: '/add'},
                 {icon: 'folder', text: 'Load Scv', route: '/loadCsv'},
                 {icon: 'folder', text: 'הוסף חשבונית', route: '/addInv'},
-                {icon: 'folder', text: 'Load Csv Book', route: '/loadBookCsv'},
                 {icon: 'folder', text: 'עדכון תשלום', route: '/Payment'},
                 {icon: 'folder', text: 'טבלת הטבלאות', route: '/tableList'},
+                {icon: 'folder', text: 'פרויקטים', route: '/project'},
             ],
             supplierList : [],
             selectedSupplier : "",
             total: '??????',
             count: '???',
+            budget: '',
         }
     },
     
     methods: {
         loadTable:async function (table_id,key) {
-        try {
-            const response = await TableDataService.findByTableID(table_id);
-            if(response) {
-                this[key] = response.data.map(code => code.description);
-                this[key].sort();
+            try {
+                const response = await TableDataService.findByTableID(table_id);
+                if(response) {
+                    this[key] = response.data.map(code => code.description);
+                    this[key].sort();
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
-        }
         },
 
-        onSuppChange(event) {
+        loadSupplier:async function (supplier) {
+            try {
+                const response = await ProjectDataService.findBySupplier(supplier);
+                if(response) {
+                    this.budget = response.data[0].budget;
+                    // console.log(response.data[0]);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        deleteAllPayments() {
+            if (window.confirm('Are you sure you want to delete all items ?')){
+                PaymentDataService.deleteAll()
+                .then((response) => {
+                    console.log(response);
+                    // this.$router.push({ name : "payments", params: {} });
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+            }
+        },
+
+        async onSuppChange(event) {
             this.$root.$emit('suppChange',event);
+            await this.loadSupplier(event);
         },
 
         getValues(count,total) {
@@ -108,7 +140,7 @@ export default {
     }
 
     .summary {
-        font-size: small;
+        font-size: x-small;
     }
 
     .v-application p {

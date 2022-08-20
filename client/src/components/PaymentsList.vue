@@ -74,8 +74,6 @@ export default {
       selected: [],
       total: "",
       count: "",
-      cycle: false,
-      aaa: 9999,
     };
   },
 

@@ -18,11 +18,6 @@ export default new Router({
       component: () => import("./components/VueCsvImport")
     },
     {
-      path: "/loadBookCsv",
-      name: "loadBookCsv",
-      component: () => import("./components/ImportCsvBook")
-    },
-    {
       path: "/Payment",
       name: "payment",
       component: () => import("./components/Payment")
@@ -31,6 +26,11 @@ export default new Router({
       path: "/tableList",
       name: "tableList",
       component: () => import("./components/TableList")
+    },
+    {
+      path: "/project",
+      name: "project",
+      component: () => import("./components/Project")
     },
   ]
 });
