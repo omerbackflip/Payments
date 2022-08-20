@@ -145,6 +145,7 @@ export default {
   text-align: left;
   max-width: auto;
   margin: auto;
+  padding-top: 13px;
 }
 
 .v-list {

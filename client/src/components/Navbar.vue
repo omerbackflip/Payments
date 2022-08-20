@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-app-bar app dark>
+        <v-app-bar app dark style="height: 70px;">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-spacer></v-spacer>
             <v-select class="mt-6"
@@ -22,7 +22,7 @@
             </v-row>
             <payments-list @getData = "getValues" :noData = "true" />
             <Payment title="New Payment" :paymentToUpdate="null"/>
-           <v-icon small @click="deleteAllPayments()">mdi-delete</v-icon>
+            <v-icon small @click="deleteAllPayments()">mdi-delete</v-icon>
         </v-app-bar>
 
         <v-navigation-drawer app v-model="drawer" class="primary">
@@ -139,8 +139,14 @@ export default {
       max-height: 60px;
     }
 
+    .v-toolbar__content{
+        height: 70px !important;
+        padding-right: 1px !important;
+        padding-left: 1px !important;
+    }
+
     .summary {
-        font-size: x-small;
+        font-size: small;
     }
 
     .v-application p {
