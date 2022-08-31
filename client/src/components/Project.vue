@@ -16,6 +16,7 @@
                       disable-pagination
                       hide-default-footer
                       fixed-header
+                      mobile-breakpoint=0
                       height="75vh"
                       dense
                       class="elevation-3"
@@ -201,15 +202,15 @@ export default {
 </script>
 
 <style>
-.list {
-  text-align: left;
-  max-width: auto;
-  margin: auto;
-}
-.title {
-border: 3px solid blue;
-text-align: center;
-font-weight: bold;
-font-size: 16px;
-}
+  .list {
+    text-align: left;
+    max-width: auto;
+    margin: auto;
+  }
+  .title {
+    border: 3px solid blue;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
 </style>

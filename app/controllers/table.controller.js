@@ -14,6 +14,9 @@ exports.create = (req, res) => {
     table_id:     req.body.table_id,
     table_code:     req.body.table_code,
     description:  req.body.description,
+    numeric1:  req.body.numeric1,
+    numeric2:  req.body.numeric2,
+    date1:  req.body.date1,
   });
 
   // Save Table in the database

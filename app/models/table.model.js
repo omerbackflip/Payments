@@ -4,6 +4,9 @@ module.exports = mongoose => {
       table_id: Number,
       table_code: Number,
       description: String,
+      numeric1: Number,
+      numeric2: Number,
+      date1: Date,
     },
     { timestamps: true }
   );

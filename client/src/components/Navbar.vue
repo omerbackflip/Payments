@@ -21,8 +21,11 @@
                 </v-col>
             </v-row>
             <payments-list @getData = "getValues" :noData = "true" />
-            <Payment title="New Payment" :paymentToUpdate="null"/>
-            <v-icon small @click="deleteAllPayments()">mdi-delete</v-icon>
+            <v-col>
+                <Payment title="New Payment" :paymentToUpdate="null"/>
+                <p></p>
+                <v-icon small @click="deleteAllPayments()">mdi-delete</v-icon>
+            </v-col>
         </v-app-bar>
 
         <v-navigation-drawer app v-model="drawer" class="primary">
