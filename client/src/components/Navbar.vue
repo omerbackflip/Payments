@@ -66,6 +66,7 @@ export default {
                 {icon: 'folder', text: 'עדכון תשלום', route: '/Payment'},
                 {icon: 'folder', text: 'טבלת הטבלאות', route: '/tableList'},
                 {icon: 'folder', text: 'פרויקטים', route: '/project'},
+                {icon: 'folder', text: 'ראשי', route: '/mainView'},
             ],
             supplierList : [],
             selectedSupplier : "",

@@ -12,10 +12,10 @@ module.exports = mongoose => {
     {
       project: String,
       // supplier: [supplierSchema],
+      supplier : String,
       // description: String,
       budget: Number,
-      revenues : Number,
-      supplier : String,
+      payments : Number,
     },
     { timestamps: true }
   );

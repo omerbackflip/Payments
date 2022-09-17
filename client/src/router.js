@@ -32,5 +32,10 @@ export default new Router({
       name: "project",
       component: () => import("./components/Project")
     },
+    {
+      path: "/mainView",
+      name: "mainView",
+      component: () => import("./components/MainView")
+    },
   ]
 });

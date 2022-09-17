@@ -73,6 +73,7 @@
 <script>
 import PaymentDataService from "../services/PaymentDataService";
 export default {
+    name: "payment",
     props:['title','paymentToUpdate'],
     data () {
       return {
@@ -111,7 +112,7 @@ export default {
 
      mounted(){
 		this.payment = this.paymentToUpdate ?  this.paymentToUpdate : {};
-        console.log("Payment.vue is mounted") 
+        console.log(this.title) 
 	}
 }
 </script>
