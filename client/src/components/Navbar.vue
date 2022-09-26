@@ -9,15 +9,15 @@
                 dense
                 solo
                 outlined
-                label="בחר קבלן"
+                label="Supplier"
             ></v-select>
             <v-row>
                 <v-col class="summary">
-                    תקציב = {{budget.toLocaleString()}}
+                    Budget = {{budget.toLocaleString()}}
                     <p></p>
-                    שולם = {{total.toLocaleString()}}
+                    Paid = {{total.toLocaleString()}}
                     <p></p>
-                    נותר = {{(budget-total).toLocaleString()}}
+                    Bdg.Left = {{(budget-total).toLocaleString()}}
                 </v-col>
             </v-row>
             <payments-list @getData = "getValues" :noData = "true" />
@@ -59,14 +59,14 @@ export default {
         return {
             drawer: false,
             links: [
-                {icon: 'dashboard', text: 'כרטסת ראשית', route: '/'},
+                {icon: 'dashboard', text: 'All Payments', route: '/'},
                 {icon: 'person', text: 'הוסף רשומה (קוד מקורי)', route: '/add'},
                 {icon: 'folder', text: 'Load Scv', route: '/loadCsv'},
-                {icon: 'folder', text: 'הוסף חשבונית', route: '/addInv'},
-                {icon: 'folder', text: 'עדכון תשלום', route: '/Payment'},
-                {icon: 'folder', text: 'טבלת הטבלאות', route: '/tableList'},
-                {icon: 'folder', text: 'פרויקטים', route: '/project'},
-                {icon: 'folder', text: 'ראשי', route: '/mainView'},
+                {icon: 'folder', text: 'Add Invoice', route: '/addInv'},
+                {icon: 'folder', text: 'Update Payment', route: '/Payment'},
+                {icon: 'folder', text: 'Table of Tabbles', route: '/tableList'},
+                {icon: 'folder', text: 'Projects', route: '/project'},
+                {icon: 'folder', text: 'Main View', route: '/mainView'},
             ],
             supplierList : [],
             selectedSupplier : "",

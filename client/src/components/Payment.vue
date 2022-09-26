@@ -13,13 +13,13 @@
                 <v-container>
                     <v-row>
                         <v-col cols="4" sm="6" md="4">
-                            <v-text-field v-model="payment.amount" label="סכום"></v-text-field>
+                            <v-text-field v-model="payment.amount" label="Amount"></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field v-model="payment.vat" label="מע'מ"></v-text-field>
+                            <v-text-field v-model="payment.vat" label="vat"></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field v-model="payment.total" label="סה'כ"></v-text-field>
+                            <v-text-field v-model="payment.total" label="total"></v-text-field>
                         </v-col>          
                         <v-col cols="4">
                             <v-dialog ref="dialog" v-model="dateModal" :return-value.sync="payment.date" persistent width="290px">
@@ -40,22 +40,22 @@
                             </v-dialog>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field v-model="payment.supplier" label="שם קבלן"></v-text-field>
+                            <v-text-field v-model="payment.supplier" label="Supplier"></v-text-field>
                         </v-col>   
                         <v-col cols="4">
-                            <v-text-field v-model="payment.invoiceId" label="חשבונית"></v-text-field>
+                            <v-text-field v-model="payment.invoiceId" label="Invoice"></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field v-model="payment.project" label="פרויקט"></v-text-field>
+                            <v-text-field v-model="payment.project" label="Project"></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field v-model="payment.payMethod" label="שיק מס'"></v-text-field>
+                            <v-text-field v-model="payment.payMethod" label="credit"></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field v-model="payment.clear" label="ניקוי במקור"></v-text-field>
+                            <v-text-field v-model="payment.clear" label="clearance"></v-text-field>
                         </v-col>
                         <v-col cols="12">
-                            <v-text-field v-model="payment.remark" label="הערה"></v-text-field>
+                            <v-text-field v-model="payment.remark" label="Remark"></v-text-field>
                         </v-col>                           
                     </v-row>
                 </v-container>

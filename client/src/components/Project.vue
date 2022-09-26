@@ -6,7 +6,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="חיפוש פרויקט"
+          label="Search Proj"
           single-line
           hide-details
         ></v-text-field>

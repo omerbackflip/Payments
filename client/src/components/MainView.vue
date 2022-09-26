@@ -7,7 +7,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="חיפוש"
+          label="Serach"
           single-line
           hide-details
         ></v-text-field>
@@ -171,15 +171,15 @@ export default {
       payments: [],
       search: '',
       headers:[
-        { text: "פרויקט", value: "description", class: 'success title', groupable: false },
-        { text: "הוצאות", value: "numeric1", class: 'success title'},
-        { text: "הכנסות", value: "numeric2", class: 'success title'},
+        { text: "Project", value: "description", class: 'success title', groupable: false },
+        { text: "Expances", value: "numeric1", class: 'success title'},
+        { text: "Incomes", value: "numeric2", class: 'success title'},
         { text: "Act.", value: "actions", sortable: false, class: 'success title', groupable: false  },
       ],
       supHeaders:[
         // { text: "פרויקט", value: "project", class: 'success title', groupable: false },
-        { text: "סכום", value: "amount", class: 'success title', align:"right"},
-        { text: "תאריך", value: "date", class: 'success title'},
+        { text: "Paid", value: "amount", class: 'success title', align:"right"},
+        { text: "Date", value: "date", class: 'success title'},
         // { text: "חשבונית", value: "invoiceId", class: 'success title'},
         { text: "Act.", value: "actions", sortable: false, class: 'success title', groupable: false  },
       ],
