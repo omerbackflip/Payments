@@ -1,17 +1,17 @@
 module.exports = mongoose => {
 
-  var supplierSchema = mongoose.Schema(
-    {
-      name: String,
-      budget: Number,
-      utilized: Number
-    },
-  );
-
   var schema = mongoose.Schema(
     {
       project: String,
-      // supplier: [supplierSchema],
+      suppliers: [{
+        name : String,
+        budget: Number,
+        payments : [{
+          date : Date,
+          invoice : Number,
+          amount : Number,
+        }]
+      }],
       supplier : String,
       // description: String,
       budget: Number,

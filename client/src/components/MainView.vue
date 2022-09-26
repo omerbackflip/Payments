@@ -17,6 +17,7 @@
                       disable-pagination
                       hide-default-footer
                       fixed-header
+                      mobile-breakpoint=0
                       height="75vh"
                       dense
                       class="elevation-3"
@@ -26,6 +27,7 @@
                       item-key="table_code"
                       show-expand>
           <template v-slot:expanded-item="{item}">   
+            <td class="narrow"></td>
             <td>
               <p v-for="supplier in projects.filter(rec => rec.project === item.description)" 
                       :key="supplier.description" 
@@ -34,7 +36,6 @@
                 {{ supplier.supplier }}
               </p>
             </td>
-            <td></td>
             <td>
               <p v-for="supplier in projects.filter(rec => rec.project === item.description)" 
                       :key="supplier.description">
@@ -126,9 +127,9 @@
         <v-data-table :headers="supHeaders" 
                       :items="supPayments"
                       disable-pagination
-                      hide-default-header
                       hide-default-footer
                       fixed-header
+                      mobile-breakpoint=0
                       height="55vh"
                       dense
                       class="elevation-3"
@@ -137,8 +138,8 @@
           <template v-slot:[`item.date`]="{ item }"> 
             <span> {{ item.date | formatDate}}</span>
           </template>
-          <template v-slot:[`item.total`]="{ item }"> 
-            <span> {{ item.total ? item.total.toLocaleString() : ''}}</span>
+          <template v-slot:[`item.amount`]="{ item }"> 
+            <span> {{ item.amount ? item.amount.toLocaleString() : ''}}</span>
           </template>
           <template v-slot:[`item.actions`]="{ item }"> 
             <div>
@@ -177,7 +178,7 @@ export default {
       ],
       supHeaders:[
         // { text: "פרויקט", value: "project", class: 'success title', groupable: false },
-        { text: "סכום", value: "amount", class: 'success title'},
+        { text: "סכום", value: "amount", class: 'success title', align:"right"},
         { text: "תאריך", value: "date", class: 'success title'},
         // { text: "חשבונית", value: "invoiceId", class: 'success title'},
         { text: "Act.", value: "actions", sortable: false, class: 'success title', groupable: false  },
@@ -238,10 +239,9 @@ export default {
                           return ((item.supplier === supp) && (item.project === proj))
                         });
       this.supPayments.forEach((num) => {
-        console.log(num.amount)
         total+=num.amount;
       })
-      this.supName = supp + " - " + proj + " - " + total.toLocaleString();
+      this.supName = proj + " - " + supp + " - " + total.toLocaleString();
       this.dialog = true;
     },
 

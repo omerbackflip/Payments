@@ -112,7 +112,7 @@ export default {
 
      mounted(){
 		this.payment = this.paymentToUpdate ?  this.paymentToUpdate : {};
-        console.log(this.title) 
+        console.log("Payment.vue is mounted") 
 	}
 }
 </script>

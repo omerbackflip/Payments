@@ -27,6 +27,9 @@
                       item-key="table_code"
                       show-expand>
           <template v-slot:expanded-item="{item}">   
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
               <p v-for="source in tables.filter(rec => rec.table_id === item.table_code)" :key="source.table_code" style="width: 100px;">
                 {{ source.description }} 
